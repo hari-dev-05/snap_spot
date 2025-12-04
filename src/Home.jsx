@@ -15,7 +15,7 @@ const Home = () => {
       <section className="bg-cyan-400 text-center py-20 px-6">
         {/* Hero Content */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-          Welcome to <span className="text-gray-700">Pic Garden</span>
+          Welcome to <span className="text-gray-700">SnapSpot</span>
         </h1>
         <p className="mt-4 text-lg md:text-xl text-gray-900 max-w-2xl mx-auto">
           Discover and download stunning high-quality pictures. Free and premium collections curated just for you.

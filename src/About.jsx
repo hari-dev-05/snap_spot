@@ -9,7 +9,7 @@ const About = () => (
     <section className="bg-cyan-500 py-36 flex items-center justify-center">
       <div className="max-w-xl w-full text-center px-4">
         <h1 className="text-5xl font-bold text-gray-900 mb-8">
-          About <span className="text-white">Pic Garden</span>
+          About <span className="text-white">Snap Spot</span>
         </h1>
         <p className="text-xl text-white mb-4">
           A growing library of stunning, high-quality photos.
@@ -22,7 +22,7 @@ const About = () => (
       <div className="max-w-xl mx-auto text-center px-4">
         <h2 className="text-3xl font-semibold text-cyan-600 mb-8">Our Mission</h2>
         <p className="text-xl text-gray-700">
-          <span className="text-cyan-600">Pic Garden</span> makes beautiful visuals accessible for everyone—free for personal use, or premium for exclusive content.
+          <span className="text-cyan-600">Snap Spot</span> makes beautiful visuals accessible for everyone—free for personal use, or premium for exclusive content.
         </p>
       </div>
     </section>
@@ -64,7 +64,7 @@ const About = () => (
         </h2>
         <div className="grid md:grid-cols-2 gap-12">
           <div className="bg-cyan-500 rounded-xl p-8 shadow text-white">
-            <p className="text-lg mb-4 text-gray-900">"Pic Garden’s free library has transformed our creative workflow."</p>
+            <p className="text-lg mb-4 text-gray-900">"Snap Spot’s free library has transformed our creative workflow."</p>
             <span className="font-bold text-gray-900">— Raj, Designer</span>
           </div>
           <div className="bg-cyan-500 rounded-xl p-8 shadow text-white">
@@ -75,28 +75,13 @@ const About = () => (
       </div>
     </section>
 
-    {/* Team Section */}
-    <section className="bg-gray-100 py-24">
-      <div className="max-w-3xl mx-auto text-center px-4">
-        <h2 className="text-3xl font-semibold text-cyan-600 mb-8">Meet the Team</h2>
-        <div className="flex flex-wrap justify-center gap-8">
-          <div className="bg-cyan-500 rounded-xl px-8 py-12 shadow">
-            <span className="block text-xl font-bold text-white mb-2">Amit</span>
-            <span className="block text-lg text-gray-900">Founder</span>
-          </div>
-          <div className="bg-cyan-500 rounded-xl px-8 py-12 shadow">
-            <span className="block text-xl font-bold text-white mb-2">Priya</span>
-            <span className="block text-lg text-gray-900">Lead Photographer</span>
-          </div>
-        </div>
-      </div>
-    </section>
+   
 
     {/* Call to Action */}
     <section className="bg-cyan-500 py-24">
       <div className="max-w-xl mx-auto text-center px-4">
         <h2 className="text-3xl font-bold text-white mb-8">
-          Start Exploring <span className="text-gray-900">Pic Garden</span>
+          Start Exploring <span className="text-gray-900">Snap Spot</span>
         </h2>
         <p className="text-xl text-gray-900 mb-8">
           Find free images or upgrade to premium for exclusive collections.

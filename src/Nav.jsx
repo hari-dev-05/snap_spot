@@ -12,7 +12,7 @@ const Nav = () => {
           to="/"
           className="text-3xl text-white font-extrabold tracking-tight hover:scale-105 transition-transform duration-300"
         >
-          Pic<span className="text-cyan-400">Garden</span>
+          Snap<span className="text-cyan-400">Spot</span>
         </Link>
 
         <ul className="hidden md:flex space-x-10 font-semibold items-center">

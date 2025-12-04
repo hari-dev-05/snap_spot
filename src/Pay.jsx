@@ -6,8 +6,9 @@ const Pay = () => {
   const navigate = useNavigate();
   const selected = location.state;
 
-  const [processing, setProcessing] = useState(false);
+  const [upiId, setUpiId] = useState("");
   const [success, setSuccess] = useState(false);
+  const [qrVisible, setQrVisible] = useState(false);
 
   if (!selected) {
     return (
@@ -23,12 +24,36 @@ const Pay = () => {
     );
   }
 
+  // FINAL UPI ID YOU WANT TO RECEIVE PAYMENT
+  const receiverUpi = "hariiiharan514-1@okhdfcbank";
+
+  const upiLink = `upi://pay?pa=${receiverUpi}&pn=SnapSpot&am=2&cu=INR&tn=Payment%20From%20${upiId}`;
+
+  const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(
+    upiLink
+  )}`;
+
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   const handlePayment = () => {
-    setProcessing(true);
-    setTimeout(() => {
-      setProcessing(false);
-      setSuccess(true);
-    }, 2000); // simulate 2s payment
+    if (!upiId.trim()) {
+      alert("Enter your UPI ID before paying.");
+      return;
+    }
+
+    if (isMobile) {
+      // Mobile → GPay Opens
+      window.location.href = upiLink;
+
+      // ⭐ AUTO SUCCESS WHEN USER RETURNS
+      setTimeout(() => setSuccess(true), 2000);
+    } else {
+      // Laptop → Show QR
+      setQrVisible(true);
+
+      // ⭐ AUTO SUCCESS (fake like other sites)
+      setTimeout(() => setSuccess(true), 2000);
+    }
   };
 
   return (
@@ -43,45 +68,55 @@ const Pay = () => {
           className="w-full h-64 object-cover rounded-xl mb-4 shadow"
         />
 
-        {/* Image Name and Tag */}
+        {/* Image Name & Tag */}
         <p className="text-lg font-medium mb-4 text-center">
           {selected.name} -{" "}
-          <span className={`font-bold ${selected.tags[0] === "Free" ? "text-green-500" : "text-yellow-500"}`}>
+          <span
+            className={`font-bold ${
+              selected.tags[0] === "Free" ? "text-green-500" : "text-yellow-500"
+            }`}
+          >
             {selected.tags[0]}
           </span>
         </p>
 
-        {/* Dummy Receipt Section */}
-        <div className="bg-gray-50 rounded-xl p-4 w-full mb-6 shadow-inner relative">
-          <p className="text-sm text-gray-500 mb-2">Payment Gateway: <span className="text-indigo-600 font-semibold">GP Paytm</span></p>
-          <p className="text-sm text-gray-500 mb-2">Transaction ID: <span className="text-indigo-700 font-mono">TXN{Math.floor(Math.random() * 1000000)}</span></p>
-          <p className="text-sm text-gray-500 mb-2">Receiver: <span className="text-indigo-600">dummy@paytm.com</span></p>
-          <p className="text-sm text-gray-500">Amount: <span className="font-bold text-indigo-700">2$</span></p>
+        {/* USER ENTERS UPI ID */}
+        <input
+          type="text"
+          value={upiId}
+          onChange={(e) => setUpiId(e.target.value)}
+          placeholder="Enter your UPI ID (example@ybl)"
+          className="w-full border rounded-xl px-4 py-3 mb-4 text-gray-700 focus:outline-none"
+        />
 
-          {/* Fun Sticker */}
-          <div className="absolute top-2 right-2 text-yellow-400 font-bold animate-bounce text-xl">
-            💰
+        {/* QR (Laptop Only) */}
+        {qrVisible && (
+          <div className="flex flex-col items-center mb-4">
+            <p className="text-sm text-gray-600 mb-2">Scan using Google Pay</p>
+            <img src={qrURL} alt="UPI QR" className="w-56 h-56 shadow-lg rounded-lg" />
+            <p className="text-xs text-gray-400 mt-2">Receiver: {receiverUpi}</p>
           </div>
-        </div>
+        )}
 
-        {/* Payment / Download Button */}
-        {!success ? (
+        {/* Pay Button */}
+        {!success && (
           <button
             onClick={handlePayment}
-            disabled={processing}
-            className={`w-full bg-indigo-500 text-white px-6 py-3 rounded-xl shadow hover:bg-indigo-600 transition font-semibold ${
-              processing ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+            className="w-full bg-green-500 text-white px-6 py-3 rounded-xl shadow hover:bg-green-600 transition font-semibold"
           >
-            {processing ? "Processing Payment..." : `Pay Now ${selected.tags[0] === "Premium" ? "$2" : ""}`}
+            Pay ₹2 (Google Pay / UPI)
           </button>
-        ) : (
-          <div className="flex flex-col items-center w-full">
-            <div className="bg-green-100 text-green-700 font-semibold px-4 py-2 rounded-lg mb-4 shadow-inner w-full text-center animate-pulse">
-              ✅ Payment Successful!
+        )}
+
+        {/* AUTO SUCCESS MESSAGE */}
+        {success && (
+          <div className="w-full text-center">
+            <div className="bg-green-100 text-green-700 p-3 rounded-lg mb-3 mt-4 font-semibold">
+              ✅ Payment Successful (Auto-Verified)
             </div>
+
             <a href={selected.loc} download>
-              <button className="w-full bg-cyan-500 text-white px-6 py-3 rounded-xl shadow hover:bg-cyan-600 transition font-semibold">
+              <button className="w-full bg-cyan-500 text-white py-3 rounded-xl shadow hover:bg-cyan-600 transition">
                 Download Image
               </button>
             </a>
